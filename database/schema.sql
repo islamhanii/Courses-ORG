@@ -1,0 +1,50 @@
+DROP DATABASE IF EXISTS courses_org;
+
+CREATE DATABASE courses_org
+COLLATE 'utf8_unicode_ci';
+
+USE courses_org;
+
+DROP TABLE IF EXISTS admins;
+DROP TABLE IF EXISTS cats;
+DROP TABLE IF EXISTS courses;
+DROP TABLE IF EXISTS reservations;
+
+CREATE TABLE admins (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    `password` VARCHAR(50) NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT NOW(),
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE cats (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(50) NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT NOW(),
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE courses (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(50) NOT NULL,
+    `desc` TEXT(1024) NOT NULL,
+    img VARCHAR(50) NOT NULL,
+    cat_id INT UNSIGNED NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT NOW(),
+    PRIMARY KEY(id),
+    FOREIGN KEY(cat_id) REFERENCES cats(id)
+);
+
+CREATE TABLE reservations (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    phone VARCHAR(25) NOT NULL,
+    spec VARCHAR(50),
+    course_id INT UNSIGNED NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT NOW(),
+    PRIMARY KEY(id),
+    FOREIGN KEY(course_id) REFERENCES courses(id)
+);
