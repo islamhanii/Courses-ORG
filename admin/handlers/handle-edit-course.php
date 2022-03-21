@@ -13,7 +13,7 @@
         $name = (isset($_POST["name"]))?mysqli_real_escape_string($connect, trim(htmlSpecialChars($_POST["name"]))):"";
         $desc = (isset($_POST["desc"]))?mysqli_real_escape_string($connect, trim(htmlSpecialChars($_POST["desc"]))):"";
         $img = (isset($_FILES["img"]))?$_FILES["img"]:"";
-        $cat_id = (isset($_POST["cat_id"]))?mysqli_real_escape_string($connect, trim(htmlSpecialChars($_POST["cat_id"]))):"";;
+        $cat_id = (isset($_POST["cat_id"]))?mysqli_real_escape_string($connect, trim(htmlSpecialChars($_POST["cat_id"]))):"";
         $errors = [];
 
         // name     required - string - max-length:50

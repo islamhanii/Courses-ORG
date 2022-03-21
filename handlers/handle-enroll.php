@@ -17,7 +17,7 @@
     $email = (isset($_POST["email"]))?mysqli_real_escape_string($connect, trim(htmlSpecialChars($_POST["email"]))):"";
     $phone = (isset($_POST["phone"]))?mysqli_real_escape_string($connect, trim(htmlSpecialChars($_POST["phone"]))):"";
     $spec = (isset($_POST["spec"]))?mysqli_real_escape_string($connect, trim(htmlSpecialChars($_POST["spec"]))):"";
-    $course_id = (isset($_POST["course_id"]))?mysqli_real_escape_string($connect, trim(htmlSpecialChars($_POST["course_id"]))):"";;
+    $course_id = (isset($_POST["course_id"]))?mysqli_real_escape_string($connect, trim(htmlSpecialChars($_POST["course_id"]))):"";
     $errors = [];
 
     // name     required - string - max-length:50
