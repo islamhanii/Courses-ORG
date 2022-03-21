@@ -13,8 +13,8 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item"><a href="#">Categories</a></li>
+              <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+              <li class="breadcrumb-item"><a href="all-categories.php">Categories</a></li>
               <li class="breadcrumb-item active">Add</li>
             </ol>
           </div><!-- /.col -->
@@ -49,7 +49,7 @@
                             } ?>
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Category Name</label>
+                                <label for="exampleInputName1">Category Name*</label>
                                 <input type="text" name="name" class="form-control" placeholder="Enter name" value="<?= (isset($name))?$name:""; ?>">
                             </div>
                         </div>

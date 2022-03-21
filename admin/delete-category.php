@@ -11,8 +11,9 @@
     $result = mysqli_query($connect, $sql);
     if($result && mysqli_num_rows($result)>0) {
         $sql = "DELETE FROM cats WHERE id = '$id'";
-        mysqli_query($connect, $sql);
-        $_SESSION["success"] = "Category Deleted Successfully";
+        if(mysqli_query($connect, $sql)) {
+            $_SESSION["success"] = "Category Deleted Successfully";
+        }
     }
     else {
         $_SESSION["failed"] = "Can't delete this category";

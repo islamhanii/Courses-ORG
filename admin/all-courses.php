@@ -9,12 +9,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">All Categories</h1>
+            <h1 class="m-0 text-dark">All Courses</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-              <li class="breadcrumb-item active">Categories</li>
+              <li class="breadcrumb-item active">Courses</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -50,6 +50,8 @@
                         <thead>
                             <tr>
                                 <th>Number</th>
+                                <th>Course</th>
+                                <th>Image</th>
                                 <th>Category</th>
                                 <th>Created At</th>
                                 <th>Actions</th>
@@ -57,26 +59,30 @@
                         </thead>
 
                         <?php
-                            $sql = "SELECT * FROM cats";
+                            $sql = "SELECT courses.id, courses.name, courses.img, courses.created_at, cats.id AS catID, cats.name AS catName
+                            FROM courses JOIN cats
+                            ON courses.cat_id = cats.id;";
                             $result = mysqli_query($connect, $sql);
-                            $cats = [];
+                            $courses = [];
                             if($result && mysqli_num_rows($result)>0) {
-                                $cats = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                                $courses = mysqli_fetch_all($result, MYSQLI_ASSOC);
                             }
                         ?>
 
                         <tbody>
                             <?php
-                                if(count($cats) > 0) {
-                                    foreach($cats as $key => $cat) {
+                                if(count($courses) > 0) {
+                                    foreach($courses as $key => $course) {
                             ?>
                             <tr>
                                 <td class="align-middle"><?= $key+1; ?></td>
-                                <td class="align-middle"><?= $cat["name"]; ?></td>
-                                <td class="align-middle"><?= $cat["created_at"]; ?></td>
+                                <td class="align-middle"><?= $course["name"]; ?></td>
+                                <td class="align-middle"><img src="../uploads/courses/<?= $course["img"]; ?>" alt="<?= $course["img"]; ?>" width="75px"/></td>
+                                <td class="align-middle"><a href="../show-category.php?id=<?= $course["catID"]; ?>"><?= $course["catName"]; ?></a></td>
+                                <td class="align-middle"><?= $course["created_at"]; ?></td>
                                 <td class="align-middle">
-                                        <a href="edit-category.php?id=<?= $cat["id"]; ?>"><button class="btn btn-info">EDIT</button></a>
-                                        <a href="delete-category.php?id=<?= $cat["id"]; ?>"><button class="btn btn-danger">DELETE</button></a>
+                                        <a href="edit-course.php?id=<?= $course["id"]; ?>"><button class="btn btn-info">EDIT</button></a>
+                                        <a href="delete-course.php?id=<?= $course["id"]; ?>"><button class="btn btn-danger">DELETE</button></a>
                                 </td>
                             </tr>
                             <?php }} ?>

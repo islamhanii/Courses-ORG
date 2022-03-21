@@ -9,12 +9,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">All Categories</h1>
+            <h1 class="m-0 text-dark">All Enrollments</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-              <li class="breadcrumb-item active">Categories</li>
+              <li class="breadcrumb-item active">Enrollments</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -27,56 +27,44 @@
       <div class="container-fluid">
         <div class="row">
         <div class="col-12">
-            <?php 
-                if(isset($_SESSION["failed"])) { 
-            ?>
-            <div class="alert alert-danger">
-                <P class="mb-0"><?= $_SESSION["failed"]; ?></P>
-            </div>
-            <?php 
-            unset($_SESSION["failed"]);
-            } ?>
-            
-            <?php if(isset($_SESSION["success"])) { ?>
-            <div class="alert alert-success">
-                <P class="mb-0"><?= $_SESSION["success"]; ?></P>
-            </div>
-            <?php 
-            unset($_SESSION["success"]);
-            } ?>
             <div class="card">
                 <div class="card-body table-responsive p-0" style="max-height: calc(100vh - 250px);">
                     <table class="table table-head-fixed text-nowrap">
                         <thead>
                             <tr>
                                 <th>Number</th>
-                                <th>Category</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Course</th>
                                 <th>Created At</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
 
                         <?php
-                            $sql = "SELECT * FROM cats";
+                            $sql = "SELECT reservations.id, reservations.name, reservations.email, reservations.created_at, courses.name AS courseName
+                            FROM reservations JOIN courses
+                            ON reservations.course_id = courses.id";
                             $result = mysqli_query($connect, $sql);
-                            $cats = [];
+                            $reservations = [];
                             if($result && mysqli_num_rows($result)>0) {
-                                $cats = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                                $reservations = mysqli_fetch_all($result, MYSQLI_ASSOC);
                             }
                         ?>
 
                         <tbody>
                             <?php
-                                if(count($cats) > 0) {
-                                    foreach($cats as $key => $cat) {
+                                if(count($reservations) > 0) {
+                                    foreach($reservations as $key => $reservation) {
                             ?>
                             <tr>
                                 <td class="align-middle"><?= $key+1; ?></td>
-                                <td class="align-middle"><?= $cat["name"]; ?></td>
-                                <td class="align-middle"><?= $cat["created_at"]; ?></td>
+                                <td class="align-middle"><?= $reservation["name"]; ?></td>
+                                <td class="align-middle"><?= $reservation["email"] ?></td>
+                                <td class="align-middle"><?= $reservation["courseName"]; ?></a></td>
+                                <td class="align-middle"><?= $reservation["created_at"]; ?></td>
                                 <td class="align-middle">
-                                        <a href="edit-category.php?id=<?= $cat["id"]; ?>"><button class="btn btn-info">EDIT</button></a>
-                                        <a href="delete-category.php?id=<?= $cat["id"]; ?>"><button class="btn btn-danger">DELETE</button></a>
+                                        <a href="show-enrollment.php?id=<?= $reservation["id"]; ?>"><button class="btn btn-primary">SHOW</button></a>
                                 </td>
                             </tr>
                             <?php }} ?>

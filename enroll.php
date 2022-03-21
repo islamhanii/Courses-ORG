@@ -27,7 +27,7 @@
                                 }
                                 unset($_SESSION["failed"]);
                                 if(isset($_SESSION["post"])) {
-                                    $_POST = $_SESSION["post"];
+                                    $post = $_SESSION["post"];
                                     unset($_SESSION["post"]);
                                 }
                             ?>
@@ -51,22 +51,22 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <input class="form-control valid" name="name" id="name" type="text"  placeholder="Enter your name" value="<?= (isset($_POST["name"]))?$_POST["name"]:""; ?>">
+                                        <input class="form-control valid" name="name" id="name" type="text"  placeholder="Enter your name" value="<?= (isset($post["name"]))?$post["name"]:""; ?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <input class="form-control valid" name="email" id="email" type="email"  placeholder="Email" value="<?= (isset($_POST["email"]))?$_POST["email"]:""; ?>">
+                                        <input class="form-control valid" name="email" id="email" type="email"  placeholder="Email" value="<?= (isset($post["email"]))?$post["email"]:""; ?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <input class="form-control valid" name="phone" id="phone" type="phone" placeholder="Phone"  value="<?= (isset($_POST["phone"]))?$_POST["phone"]:""; ?>">
+                                        <input class="form-control valid" name="phone" id="phone" type="phone" placeholder="Phone"  value="<?= (isset($post["phone"]))?$post["phone"]:""; ?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <input class="form-control valid" name="spec" id="spec" type="spec" placeholder="Speciality" value="<?= (isset($_POST["spec"]))?$_POST["spec"]:""; ?>">
+                                        <input class="form-control valid" name="spec" id="spec" type="spec" placeholder="Speciality" value="<?= (isset($post["spec"]))?$post["spec"]:""; ?>">
                                     </div>
                                 </div>
 
@@ -85,7 +85,7 @@
                                         <select class="form-control valid" name="course_id" id="course_id"?>">
                                             <option selected disabled>Choose Option</option>
                                             <?php foreach($courses as $course) { ?>
-                                            <option <?= (isset($_POST["course_id"]) && $_POST["course_id"] == $course["id"])?"selected":"" ?> value="<?= $course["id"]; ?>"><?= $course["name"]; ?></option>
+                                            <option <?= (isset($post["course_id"]) && $post["course_id"] == $course["id"])?"selected":"" ?> value="<?= $course["id"]; ?>"><?= $course["name"]; ?></option>
                                             <?php } ?>
                                         </select>
                 

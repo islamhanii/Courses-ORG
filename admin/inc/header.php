@@ -1,6 +1,6 @@
 <?php
   session_start();
-  if(!isset($_SESSION["adminName"])) header("location: login.php");
+  if(!isset($_SESSION["adminName"])) header("location: ../admin/login.php");
   include_once("db-connect.php");
 ?>
 
@@ -65,39 +65,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
               with font-awesome or any other icon font library -->
-          <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Sample Pages
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Page one</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Page two</p>
-                </a>
-              </li>
-            </ul>
-          </li>
 
-          <li class="nav-item">
+          <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>Page three</p>
-            </a>
-          </li>
-
-          <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-sitemap"></i>
               <p>
                 Categories
@@ -106,7 +76,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="all-categories.php" class="nav-link active">
+                <a href="all-categories.php" class="nav-link">
                   <i class="far fa-list-alt nav-icon"></i>
                   <p>All Categories</p>
                 </a>
@@ -119,10 +89,42 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
             </ul>
           </li>
+
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                Courses
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="all-courses.php" class="nav-link">
+                  <i class="far fa-list-alt nav-icon"></i>
+                  <p>All Courses</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="add-course.php" class="nav-link">
+                  <i class="fas fa-plus-square nav-icon"></i>
+                  <p>Add Course</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a href="all-enrollments.php" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>Enrollments</p>
+            </a>
+          </li>
+
           <li class="nav-item">
             <a href="logout.php" class="nav-link">
               <i class="nav-icon fas fa-sign-out-alt"></i>
-              <p >Log out</p>
+              <p>Log out</p>
             </a>
           </li>
         </ul>

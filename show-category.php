@@ -57,7 +57,7 @@
                                 <div class="single_courses">
                                     <div class="thumb">
                                         <a href="show-course.php?id=<?= $course["id"]; ?>">
-                                            <img src="assets/images/<?php echo $course["img"]; ?>" alt="">
+                                            <img src="uploads/courses/<?php echo $course["img"]; ?>" alt="">
                                         </a>
                                     </div>
                                     <div class="courses_info">

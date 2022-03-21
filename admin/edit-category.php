@@ -1,12 +1,12 @@
 <?php 
     include_once("inc/header.php");
-    if($_SERVER["REQUEST_METHOD"] != "GET")   header("location: all-categories.php");
+    if($_SERVER["REQUEST_METHOD"] != "GET" || !isset($_GET["id"]))   header("location: all-categories.php");
 
     $id = $_GET["id"];
     $sql = "SELECT * FROM cats WHERE id = {$id}";
     $result = mysqli_query($connect, $sql);
     if($result && mysqli_num_rows($result)>0) {
-        $category = mysqli_fetch_assoc($result);
+      $category = mysqli_fetch_assoc($result);
     }
     else    header("location: all-categories.php");
 ?>
@@ -56,7 +56,7 @@
                             } ?>
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Category Name</label>
+                                <label for="exampleInputEmail1">Category Name*</label>
                                 <input type="text" name="name" class="form-control" placeholder="Enter name" value="<?= $category["name"]; ?>">
                             </div>
                         </div>

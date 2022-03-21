@@ -52,7 +52,7 @@
                 <div class="col-xl-5 col-lg-5">
                     <div class="courses_sidebar">
                         <div class="video_thumb">
-                            <img src="assets/images/<?= $course["img"]; ?>" alt="">
+                            <img src="uploads/courses/<?= $course["img"]; ?>" alt="">
                         </div>
                     </div>
                 </div>
