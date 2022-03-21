@@ -59,7 +59,7 @@
                               
                               $days = floor($diff / (60*60*24));
                             ?>
-                            <p class="card-text"><small class="text-muted">Enrolled at <?= $days; ?> days ago</small></p>
+                            <p class="card-text"><small class="text-muted">Enrolled from <?= $days; ?> days ago</small></p>
                         </div>
                     </div>
                 </div>
