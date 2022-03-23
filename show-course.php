@@ -1,13 +1,13 @@
 <?php 
+    include_once("globals.php");
+    include_once("" . Globals::getRoot() . "/inc/header.php");
 
-    include_once("inc/header.php");
-
+    $found = false;
     $course["name"] = "No Course Found";
     if(isset($_GET["id"])) {
         $id = $_GET["id"];
         $sql = "SELECT `name`, `desc`, img FROM courses WHERE id = $id";
         $result = mysqli_query($connect, $sql);
-        $found = false;
         if($result && mysqli_num_rows($result)>0) {
             $course = mysqli_fetch_assoc($result);
             $found = true;
@@ -52,7 +52,7 @@
                 <div class="col-xl-5 col-lg-5">
                     <div class="courses_sidebar">
                         <div class="video_thumb">
-                            <img src="uploads/courses/<?= $course["img"]; ?>" alt="">
+                            <img src="<?= Globals::getURL(); ?>uploads/courses/<?= $course["img"]; ?>" alt="">
                         </div>
                     </div>
                 </div>
@@ -61,4 +61,4 @@
     </div>
     <?php } ?>
 
-<?php include_once("inc/footer.php"); ?>
+<?php include_once("" . Globals::getRoot() . "/inc/footer.php"); ?>

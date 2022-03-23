@@ -1,7 +1,9 @@
 <?php
     session_start();
 
-    if($_SERVER["REQUEST_METHOD"] != "POST" || !isset($_POST["submit"]))    header("location: ../login.php");
+    include_once("../../globals.php");
+    include_once(Globals::getRoot() . "/validators.php");
+    if($_SERVER["REQUEST_METHOD"] != "POST" || !isset($_POST["submit"]))    Globals::redirectURL("admin/login.php");
 
     require_once("../inc/db-connect.php");
 
@@ -9,29 +11,15 @@
     $password = (isset($_POST["password"]))?mysqli_real_escape_string($connect, trim(htmlSpecialChars($_POST["password"]))):"";
     $_SESSION["post_email"] = $email;
     
-    $errors = [];
+    $validatorObj = new Validator();
     // email    required - email - max-length:50
-    if(empty($email)) {
-        array_push($errors, "* Email is required.");
-    }
-    else if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        array_push($errors, "* Enter valid email.");
-    }
-    else if(strlen($email)>50) {
-        array_push($errors, "* Email should be less than 50 characters.");
-    }
+    $validatorObj->make($email, "Email", "required|email|max:50");
 
     // password    required - string - length: [5 < 25]
-    if(empty($password)) {
-        array_push($errors, "* Password is required.");
-    }
-    else if(!is_string($password)) {
-        array_push($errors, "* Password should contains characters.");
-    }
-    else if(strlen($password)<5 || strlen($password)>25) {
-        array_push($errors, "* Password should be between 5 and 25 characters.");
-    }
+    $validatorObj->make($password, "Password", "required|string|max:25|min:6");
 
+    $errors = $validatorObj->getErrors();
+    
     if(empty($errors)) {
         $_SESSION["login_error"] = "* Wrong email or password";
 
@@ -54,5 +42,5 @@
     }
 
     mysqli_close($connect);
-    if(isset($_SESSION["adminName"]))   header("location: ../index.php");
-    else header("location: ../login.php");
+    if(isset($_SESSION["adminName"]))   Globals::redirectURL("admin/index.php");
+    else Globals::redirectURL("admin/login.php");

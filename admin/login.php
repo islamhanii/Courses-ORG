@@ -1,6 +1,7 @@
 <?php 
     session_start();
-    if(isset($_SESSION["adminName"]))   header("location: index.php");
+    include_once("../globals.php");
+    if(isset($_SESSION["adminName"]))   Globals::redirectURL("admin/index.php");
 ?>
 
 <!DOCTYPE html>
@@ -12,11 +13,9 @@
 
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
-        <link rel="stylesheet" href="assets/css/fontawesome.all.css">
+        <link rel="stylesheet" href="<?= Globals::getURL(); ?>admin/assets/css/fontawesome.all.css">
 
-        <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-
-        <link rel="stylesheet" href="assets/css/adminlte.css">
+        <link rel="stylesheet" href="<?= Globals::getURL(); ?>admin/assets/css/adminlte.css">
     </head>
     <body class="hold-transition login-page">
         <div class="login-box">
@@ -53,7 +52,7 @@
                     }
                     ?>
 
-                    <form action="handlers/handle-login.php" method="post">
+                    <form action="<?= Globals::getURL(); ?>admin/handlers/handle-login.php" method="post">
                         <div class="input-group mb-3">
                             <input type="email" name="email" class="form-control" placeholder="Email" value="<?= (isset($email))?$email:""; ?>">
                             <div class="input-group-append">
@@ -82,10 +81,10 @@
         </div>
 
 
-        <script src="assets/js/jquery.js"></script>
+        <script src="<?= Globals::getURL(); ?>admin/assets/js/jquery.js"></script>
 
-        <script src="assets/js//bootstrap.bundle.js"></script>
+        <script src="<?= Globals::getURL(); ?>admin/assets/js//bootstrap.bundle.js"></script>
 
-        <script src="assets/js/adminlte.js"></script>
+        <script src="<?= Globals::getURL(); ?>admin/assets/js/adminlte.js"></script>
     </body>
 </html>

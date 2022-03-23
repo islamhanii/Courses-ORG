@@ -1,5 +1,6 @@
 <?php 
-  include_once("inc/header.php");
+    include_once("../globals.php");
+    include_once("" . Globals::getRoot() . "/admin/inc/header.php");
 ?>
 
   <!-- Content Wrapper. Contains page content -->
@@ -13,7 +14,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+              <li class="breadcrumb-item"><a href="<?= Globals::getURL(); ?>admin/index.php">Home</a></li>
               <li class="breadcrumb-item active">Courses</li>
             </ol>
           </div><!-- /.col -->
@@ -77,12 +78,12 @@
                             <tr>
                                 <td class="align-middle"><?= $key+1; ?></td>
                                 <td class="align-middle"><?= $course["name"]; ?></td>
-                                <td class="align-middle"><img src="../uploads/courses/<?= $course["img"]; ?>" alt="<?= $course["img"]; ?>" width="75px"/></td>
-                                <td class="align-middle"><a href="../show-category.php?id=<?= $course["catID"]; ?>"><?= $course["catName"]; ?></a></td>
+                                <td class="align-middle"><img src="<?= Globals::getURL(); ?>uploads/courses/<?= $course["img"]; ?>" alt="<?= $course["img"]; ?>" width="75px"/></td>
+                                <td class="align-middle"><a href="<?= Globals::getURL(); ?>show-category.php?id=<?= $course["catID"]; ?>"><?= $course["catName"]; ?></a></td>
                                 <td class="align-middle"><?= $course["created_at"]; ?></td>
                                 <td class="align-middle">
-                                        <a href="edit-course.php?id=<?= $course["id"]; ?>"><button class="btn btn-info">EDIT</button></a>
-                                        <a href="delete-course.php?id=<?= $course["id"]; ?>"><button class="btn btn-danger">DELETE</button></a>
+                                        <a href="<?= Globals::getURL(); ?>admin/edit-course.php?id=<?= $course["id"]; ?>"><button class="btn btn-info">EDIT</button></a>
+                                        <a href="<?= Globals::getURL(); ?>admin/delete-course.php?id=<?= $course["id"]; ?>"><button class="btn btn-danger">DELETE</button></a>
                                 </td>
                             </tr>
                             <?php }} ?>
@@ -101,4 +102,4 @@
   </div>
   <!-- /.content-wrapper -->
 
-<?php include_once("inc/footer.php"); ?>
+<?php include_once("" . Globals::getRoot() . "/admin/inc/footer.php"); ?>

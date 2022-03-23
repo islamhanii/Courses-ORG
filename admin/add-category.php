@@ -1,5 +1,6 @@
 <?php 
-  include_once("inc/header.php");
+    include_once("../globals.php");
+    include_once("" . Globals::getRoot() . "/admin/inc/header.php");
 ?>
 
   <!-- Content Wrapper. Contains page content -->
@@ -13,8 +14,8 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-              <li class="breadcrumb-item"><a href="all-categories.php">Categories</a></li>
+              <li class="breadcrumb-item"><a href="<?= Globals::getURL(); ?>admin/index.php">Home</a></li>
+              <li class="breadcrumb-item"><a href="<?= Globals::getURL(); ?>admin/all-categories.php">Categories</a></li>
               <li class="breadcrumb-item active">Add</li>
             </ol>
           </div><!-- /.col -->
@@ -33,7 +34,7 @@
                     <h3 class="card-title">New Category</h3>
                     </div>
 
-                    <form action="handlers/handle-add-category.php" method="POST">
+                    <form action="<?= Globals::getURL(); ?>admin/handlers/handle-add-category.php" method="POST">
                         <div class="card-body">
 
                             <?php 
@@ -68,4 +69,4 @@
   </div>
   <!-- /.content-wrapper -->
 
-<?php include_once("inc/footer.php"); ?>
+<?php include_once("" . Globals::getRoot() . "/admin/inc/footer.php"); ?>

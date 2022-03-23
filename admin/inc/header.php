@@ -1,7 +1,9 @@
 <?php
   session_start();
-  if(!isset($_SESSION["adminName"])) header("location: ../admin/login.php");
-  include_once("db-connect.php");
+  include_once("../globals.php");
+  if(!isset($_SESSION["adminName"])) Globals::redirectURL("admin/login.php");
+  include_once("../globals.php");
+  include_once("" . Globals::getRoot() . "/admin/inc/db-connect.php");
 ?>
 
 <!DOCTYPE html>
@@ -18,9 +20,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <title>CoursesORG | Admin</title>
 
   <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="assets/css/fontawesome.all.css">
+  <link rel="stylesheet" href="<?= Globals::getURL(); ?>admin/assets/css/fontawesome.all.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="assets/css/adminlte.css">
+  <link rel="stylesheet" href="<?= Globals::getURL(); ?>admin/assets/css/adminlte.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -43,7 +45,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
-      <img src="assets/images/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+      <img src="<?= Globals::getURL(); ?>admin/assets/images/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">CoursesORG</span>
     </a>
@@ -53,10 +55,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="assets/images/user-profile.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="<?= Globals::getURL(); ?>admin/assets/images/user-profile.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block"><?= $_SESSION["adminName"]; ?></a>
+          <a href="#" class="d-block"><?php echo $_SESSION["adminName"]; ?></a>
         </div>
       </div>
 
@@ -76,13 +78,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="all-categories.php" class="nav-link">
+                <a href="<?= Globals::getURL(); ?>admin/all-categories.php" class="nav-link">
                   <i class="far fa-list-alt nav-icon"></i>
                   <p>All Categories</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="add-category.php" class="nav-link">
+                <a href="<?= Globals::getURL(); ?>admin/add-category.php" class="nav-link">
                   <i class="fas fa-plus-square nav-icon"></i>
                   <p>Add Category</p>
                 </a>
@@ -100,13 +102,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="all-courses.php" class="nav-link">
+                <a href="<?= Globals::getURL(); ?>admin/all-courses.php" class="nav-link">
                   <i class="far fa-list-alt nav-icon"></i>
                   <p>All Courses</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="add-course.php" class="nav-link">
+                <a href="<?= Globals::getURL(); ?>admin/add-course.php" class="nav-link">
                   <i class="fas fa-plus-square nav-icon"></i>
                   <p>Add Course</p>
                 </a>
@@ -115,21 +117,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
 
           <li class="nav-item">
-            <a href="all-enrollments.php" class="nav-link">
+            <a href="<?= Globals::getURL(); ?>admin/all-enrollments.php" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>Enrollments</p>
             </a>
           </li>
 
           <li class="nav-item">
-            <a href="edit-profile.php" class="nav-link">
+            <a href="<?= Globals::getURL(); ?>admin/edit-profile.php" class="nav-link">
               <i class="nav-icon fas fa-user-edit"></i>
               <p>Edit Profile</p>
             </a>
           </li>
 
           <li class="nav-item">
-            <a href="logout.php" class="nav-link">
+            <a href="<?= Globals::getURL(); ?>admin/logout.php" class="nav-link">
               <i class="nav-icon fas fa-sign-out-alt"></i>
               <p>Log out</p>
             </a>

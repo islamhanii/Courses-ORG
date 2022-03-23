@@ -1,6 +1,7 @@
 
 <?php 
-    include_once("inc/header.php");
+    include_once("globals.php");
+    include_once("" . Globals::getRoot() . "/inc/header.php");
 
     
     $category = "No Category Found";
@@ -56,13 +57,13 @@
                             <div class="col-xl-4 col-lg-4 col-md-6">
                                 <div class="single_courses">
                                     <div class="thumb">
-                                        <a href="show-course.php?id=<?= $course["id"]; ?>">
-                                            <img src="uploads/courses/<?php echo $course["img"]; ?>" alt="">
+                                        <a href="<?= Globals::getURL(); ?>show-course.php?id=<?= $course["id"]; ?>">
+                                            <img src="<?= Globals::getURL(); ?>uploads/courses/<?= $course["img"]; ?>" alt="">
                                         </a>
                                     </div>
                                     <div class="courses_info">
                                         <span><?= $course["category"]; ?></span>
-                                        <h3><a href="show-course.php?id=<?= $course["id"]?>"><?= $course["name"]; ?></a></h3>
+                                        <h3><a href="<?= Globals::getURL(); ?>show-course.php?id=<?= $course["id"]?>"><?= $course["name"]; ?></a></h3>
                                     </div>
                                 </div>
                             </div>
@@ -75,4 +76,4 @@
     </div>
     <!-- popular_courses_end-->
     
-<?php include_once("inc/footer.php"); ?>
+<?php include_once("" . Globals::getRoot() . "/inc/footer.php"); ?>

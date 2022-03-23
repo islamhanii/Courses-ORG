@@ -3,4 +3,5 @@
     session_start();
     session_unset();
     session_destroy();
-    header("location: login.php");
+    include_once("../globals.php");
+    Globals::redirectURL("admin/login.php");

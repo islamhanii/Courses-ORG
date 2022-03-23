@@ -1,4 +1,7 @@
-<?php include_once("inc/header.php"); ?>
+<?php 
+    include_once("globals.php");
+    include_once("" . Globals::getRoot() . "/inc/header.php");
+?>
 
     <!-- slider_area_start -->
     <div class="slider_area ">
@@ -7,7 +10,7 @@
                 <div class="row align-items-center justify-content-center">
                     <div class="col-xl-6 col-md-6">
                         <div class="illastrator_png">
-                            <img src="assets/images/banner/edu_ilastration.png" alt="">
+                            <img src="<?= Globals::getURL(); ?>assets/images/banner/edu_ilastration.png" alt="">
                         </div>
                     </div>
                     <div class="col-xl-6 col-md-6">
@@ -15,7 +18,7 @@
                             <h3>Learn your <br>
                                 Favorite Course <br>
                                 From Online</h3>
-                            <a href="#" class="boxed_btn">Browse Our Courses</a>
+                            <a href="<?= Globals::getURL(); ?>all-courses.php" class="boxed_btn">Browse Our Courses</a>
                         </div>
                     </div>
                 </div>
@@ -35,7 +38,7 @@
                         <p>Our set he for firmament morning sixth subdue darkness creeping gathered divide our let god
                             moving. Moving in fourth air night bring upon you’re it beast let you dominion likeness open
                             place day great wherein heaven sixth lesser subdue fowl </p>
-                        <a href="enroll.php" class="boxed_btn">Enroll a Course</a>
+                        <a href="<?= Globals::getURL(); ?>enroll.php" class="boxed_btn">Enroll a Course</a>
                     </div>
                 </div>
                 <div class="col-xl-6 offset-xl-1 col-lg-6">
@@ -126,13 +129,13 @@
                             <div class="col-xl-4 col-lg-4 col-md-6">
                                 <div class="single_courses">
                                     <div class="thumb">
-                                        <a href="show-course.php?id=<?= $course["id"]; ?>">
-                                            <img src="uploads/courses/<?php echo $course["img"]; ?>" alt="">
+                                        <a href="<?= Globals::getURL(); ?>show-course.php?id=<?= $course["id"]; ?>">
+                                            <img src="<?= Globals::getURL(); ?>uploads/courses/<?php echo $course["img"]; ?>" alt="">
                                         </a>
                                     </div>
                                     <div class="courses_info">
                                         <span><?= $course["category"]; ?></span>
-                                        <h3><a href="show-course.php?id=<?= $course["id"]?>"><?= $course["name"]; ?></a></h3>
+                                        <h3><a href="<?= Globals::getURL(); ?>show-course.php?id=<?= $course["id"]?>"><?= $course["name"]; ?></a></h3>
                                     </div>
                                 </div>
                             </div>
@@ -140,7 +143,7 @@
 
                             <div class="col-xl-12">
                                 <div class="more_courses text-center">
-                                    <a href="all-courses.php" class="boxed_btn_rev">More Courses</a>
+                                    <a href="<?= Globals::getURL(); ?>all-courses.php" class="boxed_btn_rev">More Courses</a>
                                 </div>
                             </div>
                         </div>
@@ -151,4 +154,4 @@
     </div>
     <!-- popular_courses_end-->
 
-<?php include_once("inc/footer.php"); ?>
+<?php include_once("" . Globals::getRoot() . "/inc/footer.php"); ?>

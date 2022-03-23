@@ -1,7 +1,9 @@
 <?php
     session_start();
 
-    if($_SERVER["REQUEST_METHOD"] != "POST" || !isset($_POST["submit"]))    header("location: ../edit-profile.php");
+    include_once("../../globals.php");
+    include_once(Globals::getRoot() . "/validators.php");
+    if($_SERVER["REQUEST_METHOD"] != "POST" || !isset($_POST["submit"]))    Globals::redirectURL("admin/edit-profile.php");
 
     require_once("../inc/db-connect.php");
 
@@ -14,46 +16,23 @@
         $email = (isset($_POST["email"]))?mysqli_real_escape_string($connect, trim(htmlSpecialChars($_POST["email"]))):"";
         $password = (isset($_POST["password"]))?mysqli_real_escape_string($connect, trim(htmlSpecialChars($_POST["password"]))):"";
         $confirm = (isset($_POST["password-confirmation"]))?mysqli_real_escape_string($connect, trim(htmlSpecialChars($_POST["password-confirmation"]))):"";
-        $errors = [];
 
+        $validatorObj = new Validator();
         // name     required - string - max-length:50
-        if(empty($name)) {
-            array_push($errors, "* Name is required.");
-        }
-        else if(!is_string($name) || is_numeric($name)) {
-            array_push($errors, "* Name should contains characters.");
-        }
-        else if(strlen($name)>50) {
-            array_push($errors, "* Name should be less than 50 characters.");
-        }
+        $validatorObj->make($name, "Name", "required|string|not-numeric|max:50");
 
         // email    required - email - max-length:50
-        if(empty($email)) {
-            array_push($errors, "* Email is required.");
-        }
-        else if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            array_push($errors, "* Enter valid email.");
-        }
-        else if(strlen($email)>50) {
-            array_push($errors, "* Email should be less than 50 characters.");
-        }
+        $validatorObj->make($email, "Email", "required|email|max:50");
 
         // password string - max-length:25 - min-length: 6
         if(!empty($password)) {
-            if(!is_string($password)) {
-                array_push($errors, "* password should be string.");
-            }
-            else if(strlen($password)>25 || strlen($password)<6) {
-                array_push($errors, "* Password should be between than 50 characters.");
-            }
-            else if($password !== $confirm) {
-                array_push($errors, "* Wrong password confirmation");
-            }
+            $validatorObj->make($password, "Password", "string|max:25|min:6|confirm:$confirm");
         }
         else {
             $password = NULL;
         }
 
+        $errors = $validatorObj->getErrors();
 
         if(empty($errors)) {
             if($password === NULL) {
@@ -75,11 +54,11 @@
         }
         
         mysqli_close($connect);
-        header("location: ../edit-profile.php");
+        Globals::redirectURL("admin/edit-profile.php");
     }
 
     mysqli_close($connect);
-    header("location: ../login.php");
+    Globals::redirectURL("admin/login.php");
 
     
 

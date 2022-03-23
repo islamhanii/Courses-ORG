@@ -1,6 +1,7 @@
 <?php 
-  include_once("inc/header.php");
-  if($_SERVER["REQUEST_METHOD"] != "GET" || !isset($_GET["id"]))  header("location: all-enrollments.php");
+  include_once("../globals.php");
+  include_once("" . Globals::getRoot() . "/admin/inc/header.php");
+  if($_SERVER["REQUEST_METHOD"] != "GET" || !isset($_GET["id"]))  Globals::redirectURL("admin/all-enrollments.php");
 
   $id = $_GET["id"];
   $sql = "SELECT reservations.*, courses.name AS courseName FROM reservations JOIN courses ON reservations.course_id = courses.id WHERE reservations.id = $id";
@@ -9,7 +10,7 @@
     $student = mysqli_fetch_assoc($result);
   }
   else {
-    header("location: all-enrollments.php");
+    Globals::redirectURL("admin/all-enrollments.php");
   }
 ?>
 
@@ -24,8 +25,8 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-              <li class="breadcrumb-item"><a href="all-enrollments.php">Enrollments</a></li>
+              <li class="breadcrumb-item"><a href="<?= Globals::getURL(); ?>index.php">Home</a></li>
+              <li class="breadcrumb-item"><a href="<?= Globals::getURL(); ?>all-enrollments.php">Enrollments</a></li>
               <li class="breadcrumb-item active">Show</li>
             </ol>
           </div><!-- /.col -->
@@ -50,7 +51,7 @@
                             <p class="card-text"><strong>Email: </strong> <?= $student["email"]; ?></p>
                             <p class="card-text"><strong>Phone: </strong> <?= $student["phone"]; ?></p>
                             <p class="card-text"><strong>Course: </strong> <?= $student["courseName"]; ?></p>
-                            <p class="card-text"><strong>Specification: </strong> <?= ($student["spec"]!==NULL)?$student["spec"]: "UNKNOWN"; ?></p>
+                            <p class="card-text"><strong>Speciality: </strong> <?= ($student["spec"]!==NULL)?$student["spec"]: "UNKNOWN"; ?></p>
                             <?php
                               $date1 = $student["created_at"];
                               $date2 = date("Y-m-d h:i:sa");
@@ -73,4 +74,4 @@
   </div>
   <!-- /.content-wrapper -->
 
-<?php include_once("inc/footer.php"); ?>
+<?php include_once("" . Globals::getRoot() . "/admin/inc/footer.php"); ?>

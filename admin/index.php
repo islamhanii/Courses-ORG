@@ -1,5 +1,6 @@
 <?php
-  include_once("inc/header.php");
+    include_once("../globals.php");
+    include_once("" . Globals::getRoot() . "/admin/inc/header.php");
 ?>
 
   <!-- Content Wrapper. Contains page content -->
@@ -42,7 +43,7 @@
               <div class="icon">
                 <i class="fas fa-sitemap"></i>
               </div>
-              <a href="all-categories.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="<?= Globals::getURL(); ?>admin/all-categories.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <div class="col-lg-4 col-6">
@@ -62,7 +63,7 @@
               <div class="icon">
                 <i class="fas fa-book"></i>
               </div>
-              <a href="all-courses.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="<?= Globals::getURL(); ?>admin/all-courses.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <div class="col-lg-4 col-6">
@@ -82,7 +83,7 @@
               <div class="icon">
                 <i class="fas fa-users"></i>
               </div>
-              <a href="all-enrollments.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="<?= Globals::getURL(); ?>admin/all-enrollments.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
         </div>
@@ -93,4 +94,4 @@
   </div>
   <!-- /.content-wrapper -->
 
-<?php include_once("inc/footer.php"); ?>
+<?php include_once("" . Globals::getRoot() . "/admin/inc/footer.php"); ?>

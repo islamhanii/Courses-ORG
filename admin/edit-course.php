@@ -1,6 +1,7 @@
 <?php 
-  include_once("inc/header.php");
-  if($_SERVER["REQUEST_METHOD"] != "GET" || !isset($_GET["id"]))   header("location: all-courses.php");
+  include_once("../globals.php");
+  include_once("" . Globals::getRoot() . "/admin/inc/header.php");
+  if($_SERVER["REQUEST_METHOD"] != "GET" || !isset($_GET["id"]))   Globals::redirectURL("admin/all-courses.php");
 
   $id = $_GET["id"];
   $sql = "SELECT * FROM courses WHERE id = {$id}";
@@ -8,7 +9,7 @@
   if($result && mysqli_num_rows($result)>0) {
     $course = mysqli_fetch_assoc($result);
   }
-  else  header("location: all-courses.php");
+  else  Globals::redirectURL("admin/all-courses.php");
 ?>
 
   <!-- Content Wrapper. Contains page content -->
@@ -22,8 +23,8 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-              <li class="breadcrumb-item"><a href="all-courses.php">Courses</a></li>
+              <li class="breadcrumb-item"><a href="<?= Globals::getURL(); ?>admin/index.php">Home</a></li>
+              <li class="breadcrumb-item"><a href="<?= Globals::getURL(); ?>admin/all-courses.php">Courses</a></li>
               <li class="breadcrumb-item active">Edit</li>
             </ol>
           </div><!-- /.col -->
@@ -42,7 +43,7 @@
                     <h3 class="card-title">Edit Course</h3>
                     </div>
 
-                    <form action="handlers/handle-edit-course.php?id=<?= $id; ?>" method="POST" enctype="multipart/form-data">
+                    <form action="<?= Globals::getURL(); ?>admin/handlers/handle-edit-course.php?id=<?= $id; ?>" method="POST" enctype="multipart/form-data">
                         <div class="card-body">
                             <?php if(isset($_SESSION["failed"])) { ?>
                             
@@ -114,4 +115,4 @@
   </div>
   <!-- /.content-wrapper -->
 
-<?php include_once("inc/footer.php"); ?>
+<?php include_once("" . Globals::getRoot() . "/admin/inc/footer.php"); ?>

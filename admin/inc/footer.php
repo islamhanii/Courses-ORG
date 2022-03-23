@@ -23,10 +23,10 @@
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
-<script src="assets/js/jquery.js"></script>
+<script src="<?= Globals::getURL(); ?>admin/assets/js/jquery.js"></script>
 <!-- Bootstrap 4 -->
-<script src="assets/js/bootstrap.bundle.js"></script>
+<script src="<?= Globals::getURL(); ?>admin/assets/js/bootstrap.bundle.js"></script>
 <!-- AdminLTE App -->
-<script src="assets/js/adminlte.js"></script>
+<script src="<?= Globals::getURL(); ?>admin/assets/js/adminlte.js"></script>
 </body>
 </html>

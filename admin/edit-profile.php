@@ -1,5 +1,6 @@
 <?php 
-  include_once("inc/header.php");
+  include_once("../globals.php");
+  include_once("" . Globals::getRoot() . "/admin/inc/header.php");
 
   $id = $_SESSION["adminID"];
   $sql = "SELECT * FROM admins WHERE id = {$id}";
@@ -7,7 +8,7 @@
   if($result && mysqli_num_rows($result)>0) {
     $admin = mysqli_fetch_assoc($result);
   }
-  else  header("location: login.php");
+  else  Globals::redirectURL("admin/login.php");
 ?>
 
   <!-- Content Wrapper. Contains page content -->
@@ -21,7 +22,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+              <li class="breadcrumb-item"><a href="<?= Globals::getURL(); ?>admin/index.php">Home</a></li>
               <li class="breadcrumb-item"><a href="#">Profile</a></li>
               <li class="breadcrumb-item active">Edit</li>
             </ol>
@@ -41,7 +42,7 @@
                     <h3 class="card-title">Edit Profile</h3>
                     </div>
 
-                    <form action="handlers/handle-edit-profile.php" method="POST">
+                    <form action="<?= Globals::getURL(); ?>admin/handlers/handle-edit-profile.php" method="POST">
                         <div class="card-body">
                             <?php if(isset($_SESSION["failed"])) { ?>
                             
@@ -100,4 +101,4 @@
   </div>
   <!-- /.content-wrapper -->
 
-<?php include_once("inc/footer.php"); ?>
+<?php include_once("" . Globals::getRoot() . "/admin/inc/footer.php"); ?>

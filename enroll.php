@@ -1,6 +1,7 @@
 <?php 
     session_start();
-    include_once("inc/header.php");
+    include_once("globals.php");
+    include_once("" . Globals::getRoot() . "/inc/header.php");
 ?>
     
         <!-- bradcam_area_start -->
@@ -47,7 +48,7 @@
                     </div>
                         
                     <div class="col-lg-8">
-                        <form class="form-contact contact_form" action="handlers/handle-enroll.php" method="post">
+                        <form class="form-contact contact_form" action="<?= Globals::getURL(); ?>handlers/handle-enroll.php" method="post">
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
@@ -124,4 +125,4 @@
             </div>
         </section>
 
-<?php include_once("inc/footer.php"); ?>
+<?php include_once("" . Globals::getRoot() . "/inc/footer.php"); ?>

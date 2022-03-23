@@ -1,5 +1,6 @@
 <?php 
-  include_once("inc/header.php");
+    include_once("../globals.php");
+    include_once("" . Globals::getRoot() . "/admin/inc/header.php");
 ?>
 
   <!-- Content Wrapper. Contains page content -->
@@ -13,7 +14,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+              <li class="breadcrumb-item"><a href="<?= Globals::getURL(); ?>admin/index.php">Home</a></li>
               <li class="breadcrumb-item active">Enrollments</li>
             </ol>
           </div><!-- /.col -->
@@ -64,7 +65,7 @@
                                 <td class="align-middle"><?= $reservation["courseName"]; ?></a></td>
                                 <td class="align-middle"><?= $reservation["created_at"]; ?></td>
                                 <td class="align-middle">
-                                        <a href="show-enrollment.php?id=<?= $reservation["id"]; ?>"><button class="btn btn-primary">SHOW</button></a>
+                                        <a href="<?= Globals::getURL(); ?>admin/show-enrollment.php?id=<?= $reservation["id"]; ?>"><button class="btn btn-primary">SHOW</button></a>
                                 </td>
                             </tr>
                             <?php }} ?>
@@ -83,4 +84,4 @@
   </div>
   <!-- /.content-wrapper -->
 
-<?php include_once("inc/footer.php"); ?>
+<?php include_once("" . Globals::getRoot() . "/admin/inc/footer.php"); ?>
