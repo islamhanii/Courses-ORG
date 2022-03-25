@@ -13,11 +13,10 @@
     if($result && mysqli_num_rows($result)>0) {
         $name = (isset($_POST["name"]))?mysqli_real_escape_string($connect, trim(htmlSpecialChars($_POST["name"]))):"";
     
-        $validatorObj = new Validator();
         // name     required - string - max-length:50
-        $validatorObj->make($name, "Name", "required|string|not-numeric|max:50");
+        Validator::make($name, "Name", "required|string|not-numeric|max:50");
 
-        $errors = $validatorObj->getErrors();
+        $errors = Validator::getErrors();
 
         if(empty($errors)) {
             $sql = "UPDATE cats SET `name` = '$name' WHERE id = '$id'";

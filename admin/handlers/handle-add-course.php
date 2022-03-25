@@ -12,20 +12,19 @@
     $img = (isset($_FILES["img"]))?$_FILES["img"]:"";
     $cat_id = (isset($_POST["cat_id"]))?mysqli_real_escape_string($connect, trim(htmlSpecialChars($_POST["cat_id"]))):"";
 
-    $validatorObj = new Validator();
     // name     required - string - max-length:50
-    $validatorObj->make($name, "Name", "required|string|not-numeric|max:50");
+    Validator::make($name, "Name", "required|string|not-numeric|max:50");
 
     // desc    required - string - max-length:65000
-    $validatorObj->make($desc, "Description", "required|string|not-numeric|max:65000");
+    Validator::make($desc, "Description", "required|string|not-numeric|max:65000");
 
     // img     required - max-size: 2MB - type: (jpg - jpeg - png)
-    $validatorObj->make($img, "Image", "required|image|types:jpg,jpeg,png|size:2");
+    Validator::make($img, "Image", "required|image|mimes:jpg,jpeg,png|size:2");
 
     // cat_id    required - nemuric - isfound
-    $validatorObj->make($cat_id, "Category", "required|numeric");
+    Validator::make($cat_id, "Category", "required|numeric");
 
-    $errors = $validatorObj->getErrors();
+    $errors = Validator::getErrors();
 
     $sql = "SELECT id FROM cats WHERE id = $cat_id";
     $result = mysqli_query($connect, $sql);

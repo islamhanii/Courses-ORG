@@ -17,22 +17,21 @@
         $password = (isset($_POST["password"]))?mysqli_real_escape_string($connect, trim(htmlSpecialChars($_POST["password"]))):"";
         $confirm = (isset($_POST["password-confirmation"]))?mysqli_real_escape_string($connect, trim(htmlSpecialChars($_POST["password-confirmation"]))):"";
 
-        $validatorObj = new Validator();
         // name     required - string - max-length:50
-        $validatorObj->make($name, "Name", "required|string|not-numeric|max:50");
+        Validator::make($name, "Name", "required|string|not-numeric|max:50");
 
         // email    required - email - max-length:50
-        $validatorObj->make($email, "Email", "required|email|max:50");
+        Validator::make($email, "Email", "required|email|max:50");
 
         // password string - max-length:25 - min-length: 6
         if(!empty($password)) {
-            $validatorObj->make($password, "Password", "string|max:25|min:6|confirm:$confirm");
+            Validator::make($password, "Password", "string|max:25|min:6|confirm:$confirm");
         }
         else {
             $password = NULL;
         }
 
-        $errors = $validatorObj->getErrors();
+        $errors = Validator::getErrors();
 
         if(empty($errors)) {
             if($password === NULL) {

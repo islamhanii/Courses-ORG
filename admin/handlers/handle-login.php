@@ -11,14 +11,13 @@
     $password = (isset($_POST["password"]))?mysqli_real_escape_string($connect, trim(htmlSpecialChars($_POST["password"]))):"";
     $_SESSION["post_email"] = $email;
     
-    $validatorObj = new Validator();
     // email    required - email - max-length:50
-    $validatorObj->make($email, "Email", "required|email|max:50");
+    Validator::make($email, "Email", "required|email|max:50");
 
     // password    required - string - length: [5 < 25]
-    $validatorObj->make($password, "Password", "required|string|max:25|min:6");
+    Validator::make($password, "Password", "required|string|max:25|min:6");
 
-    $errors = $validatorObj->getErrors();
+    $errors = Validator::getErrors();
     
     if(empty($errors)) {
         $_SESSION["login_error"] = "* Wrong email or password";

@@ -1,67 +1,72 @@
 <?php
+    include_once("db.php");
     class Validator {
-        private $errors = [];
-        private $input;
-        private $type;
-        private $validators;
+        private static $errors = [];
+        private static $input;
+        private static $type;
+        private static $validators;
         
         // Path input to check
-        public function make($input, $type, $validators) {
-            $this->input = $input;
-            $this->type = $type;
-            $this->validators = explode("|", $validators);
-            $this->validate();
+        public static function make($input, $type, $validators) {
+            self::$input = $input;
+            self::$type = $type;
+            self::$validators = explode("|", $validators);
+            Validator::validate();
         }
 
         // Manage validators
-        public function validate() {
-            foreach($this->validators as $validator) {
+        public static function validate() {
+            foreach(self::$validators as $validator) {
                 $valid = explode(":", $validator);
                 $message = "";
                 
                 switch ($valid[0]) {
                     case 'max':
-                        $message = $this->maxLength(intval($valid[1]));
+                        $message = self::maxLength(intval($valid[1]));
                         break;
 
                     case 'min':
-                        $message = $this->minLength(intval($valid[1]));
+                        $message = self::minLength(intval($valid[1]));
                         break;
 
                     case 'required':
-                        $message = $this->isRequired();
+                        $message = self::isRequired();
                         break;
 
                     case 'string':
-                        $message = $this->isString();
+                        $message = self::isString();
                         break;
 
                     case 'numeric':
-                        $message = $this->isNumeric();
+                        $message = self::isNumeric();
                         break;
 
                     case 'not-numeric':
-                        $message = $this->isNotNumeric();
+                        $message = self::isNotNumeric();
                         break;
 
                     case 'email':
-                        $message = $this->isEmail();
+                        $message = self::isEmail();
                         break;
 
                     case 'image':
-                        $message = $this->isImage();
+                        $message = self::isImage();
                         break;
 
-                    case 'types':
-                        $message = $this->imageTypes($valid[1]);
+                    case 'mimes':
+                        $message = self::imageTypes($valid[1]);
                         break;
 
                     case 'size':
-                        $message = $this->maxSizeImage(intval($valid[1]));
+                        $message = self::maxSizeImage(intval($valid[1]));
                         break;
 
                     case 'confirm':
-                        $message = $this->checkConfirmation($valid[1]);
+                        $message = self::checkConfirmation($valid[1]);
+                        break;
+
+                    case 'is-found':
+                        $message = self::inTable($valid[1]);
                         break;
                     
                     default:
@@ -69,65 +74,70 @@
                 }
 
                 if($message !== NULL) {
-                    array_push($this->errors, $message);
+                    array_push(self::$errors, $message);
                     break;
                 }
             }
         }
 
         // All validators
-        public function isRequired() {
-            if(empty($this->input) || (isset($this->input["name"]) && empty($this->input["name"]))) return "* $this->type is required.";
+        public static function isRequired() {
+            if(empty(self::$input) || (isset(self::$input["name"]) && empty(self::$input["name"]))) return "* " . self::$type . " is required.";
         }
 
-        public function isString() {
-            if(!is_string($this->input))    return "* $this->type should be a string.";
+        public static function isString() {
+            if(!is_string(self::$input))    return "* " . self::$type . " should be a string.";
         }
 
-        public function isNumeric() {
-            if(!is_numeric($this->input))    return "* $this->type should be a number.";
+        public static function isNumeric() {
+            if(!is_numeric(self::$input))    return "* " . self::$type . " should be a number.";
         }
 
-        public function isNotNumeric() {
-            if(is_numeric($this->input))    return "* $this->type should not be a number.";
+        public static function isNotNumeric() {
+            if(is_numeric(self::$input))    return "* " . self::$type . " should not be a number.";
         }
 
-        public function isEmail() {
-            if(!filter_var($this->input, FILTER_VALIDATE_EMAIL))    return "* Enter valid $this->type.";
+        public static function isEmail() {
+            if(!filter_var(self::$input, FILTER_VALIDATE_EMAIL))    return "* Enter valid " . self::$type . ".";
         }
 
-        public function isImage() {
-            if($this->input["error"] !== 0)   return "Error while uploading the $this->type.";
+        public static function isImage() {
+            if(self::$input["error"] !== 0)   return "Error while uploading the " . self::$type . ".";
         }
 
-        public function maxLength($max) {
-            if(strlen($this->input)>$max)  return "* Length of $this->type should be less than $max.";
+        public static function maxLength($max) {
+            if(strlen(self::$input)>$max)  return "* Length of " . self::$type . " should be less than $max.";
         }
 
-        public function minLength($min) {
-            if(strlen($this->input)<$min)  return "* Length of $this->type should be greater than $min.";
+        public static function minLength($min) {
+            if(strlen(self::$input)<$min)  return "* Length of " . self::$type . " should be greater than $min.";
         }
 
-        public function imageTypes($validTypes) {
+        public static function imageTypes($validTypes) {
             $types = explode(",", $validTypes);
-            $imagetype = pathinfo($this->input["name"], PATHINFO_EXTENSION);
+            $imagetype = pathinfo(self::$input["name"], PATHINFO_EXTENSION);
 
             $imagetype = strtolower($imagetype);
             if(!in_array($imagetype, $types)) return "* Please enter image of type [$validTypes].";
         }
 
-        public function maxSizeImage($max) {
-            $size = $this->input["size"]/(1024*1024);
-            if($size > $max) return "* Please enter $this->type with max size: $max Mb.";
+        public static function maxSizeImage($max) {
+            $size = self::$input["size"]/(1024*1024);
+            if($size > $max) return "* Please enter " . self::$type . " with max size: $max Mb.";
         }
 
-        public function checkConfirmation($confirm) {
-            if($this->input !== $confirm)   return "* Wrong $this->type confirmation";
+        public static function checkConfirmation($confirm) {
+            if(self::$input !== $confirm)   return "* Wrong " . self::$type . " confirmation";
+        }
+
+        public static function inTable($table) {
+            $result = Db::select($table, "id", "id = " . self::$input);
+            if($result === NULL)    return"* Enter a valid " . self::$type . ".";
         }
 
         // getters
-        public function getErrors() {
-            return $this->errors;
+        public static function getErrors() {
+            return self::$errors;
         }
     }
 ?>
