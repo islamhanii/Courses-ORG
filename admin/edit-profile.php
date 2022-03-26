@@ -1,12 +1,12 @@
 <?php 
-  include_once("../globals.php");
-  include_once("" . Globals::getRoot() . "/admin/inc/header.php");
+  session_start();
+  require_once("../globals.php");
+  require_once("" . Globals::getRoot() . "/admin/inc/header.php");
 
   $id = $_SESSION["adminID"];
-  $sql = "SELECT * FROM admins WHERE id = {$id}";
-  $result = mysqli_query($connect, $sql);
-  if($result && mysqli_num_rows($result)>0) {
-    $admin = mysqli_fetch_assoc($result);
+  $result = Db::select("admins", "*", "id = '$id'");
+  if($result !== NULL) {
+    $admin = $result[0];
   }
   else  Globals::redirectURL("admin/login.php");
 ?>
@@ -101,4 +101,4 @@
   </div>
   <!-- /.content-wrapper -->
 
-<?php include_once("" . Globals::getRoot() . "/admin/inc/footer.php"); ?>
+<?php require_once("" . Globals::getRoot() . "/admin/inc/footer.php"); ?>

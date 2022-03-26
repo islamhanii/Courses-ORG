@@ -1,14 +1,7 @@
 <?php
-    include_once("globals.php");
-    $hostname = "localhost";
-    $database = "courses_org";
-    $username = "root";
-    $password = "";
-
-    $connect = mysqli_connect($hostname, $username, $password, $database);
-    if(!$connect) {
-        die("Connection Failed: " . mysqli_connect_error());
-    }
+    if($_SERVER["REQUEST_URI"] === "/Courses-ORG/inc/header.php")   echo "<script> window.location.href = '../'; </script>";
+    require_once("globals.php");
+    Db::openConn();
 ?>
 
 <!doctype html>
@@ -60,11 +53,10 @@
                         </div>
 
                         <?php
-                            $sql = "SELECT * FROM cats";
-                            $result = mysqli_query($connect, $sql);
+                            $result = Db::select("cats", "*");
                             $cats = [];
-                            if(mysqli_num_rows($result)>0) {
-                                $cats = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                            if($result !== NULL) {
+                                $cats = $result;
                             }
                         ?>
 

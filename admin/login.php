@@ -1,6 +1,6 @@
 <?php 
     session_start();
-    include_once("../globals.php");
+    require_once("../globals.php");
     if(isset($_SESSION["adminName"]))   Globals::redirectURL("admin/index.php");
 ?>
 

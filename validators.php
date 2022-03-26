@@ -1,5 +1,5 @@
 <?php
-    include_once("db.php");
+    if($_SERVER["REQUEST_URI"] === "/Courses-ORG/validators.php")   echo "<script> window.location.href = 'index.php'; </script>";
     class Validator {
         private static $errors = [];
         private static $input;

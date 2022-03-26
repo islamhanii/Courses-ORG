@@ -1,6 +1,7 @@
 <?php
-    include_once("../globals.php");
-    include_once("" . Globals::getRoot() . "/admin/inc/header.php");
+    session_start();
+    require_once("../globals.php");
+    require_once("" . Globals::getRoot() . "/admin/inc/header.php");
 ?>
 
   <!-- Content Wrapper. Contains page content -->
@@ -30,11 +31,10 @@
             <div class="small-box bg-info">
               <div class="inner">
                 <?php
-                  $sql = "SELECT COUNT(id) AS numCats FROM cats";
-                  $result = mysqli_query($connect, $sql);
+                  $result = Db::select("cats", "COUNT(id) AS numCats");
                   $stats = 0;
-                  if($result && mysqli_num_rows($result)) {
-                    $stats = mysqli_fetch_row($result)[0];
+                  if($result !== NULL) {
+                    $stats = $result[0]["numCats"];
                   }
                 ?>
                 <h3><?= $stats; ?></h3>
@@ -50,11 +50,10 @@
             <div class="small-box bg-success">
               <div class="inner">
                 <?php
-                  $sql = "SELECT COUNT(id) AS numCats FROM courses";
-                  $result = mysqli_query($connect, $sql);
+                  $result = Db::select("courses", "COUNT(id) AS numCourses");
                   $stats = 0;
-                  if($result && mysqli_num_rows($result)) {
-                    $stats = mysqli_fetch_row($result)[0];
+                  if($result !== NULL) {
+                    $stats = $result[0]["numCourses"];
                   }
                 ?>
                 <h3><?= $stats; ?></h3>
@@ -70,11 +69,10 @@
             <div class="small-box bg-danger">
               <div class="inner">
                 <?php
-                  $sql = "SELECT COUNT(id) AS numCats FROM reservations";
-                  $result = mysqli_query($connect, $sql);
+                  $result = Db::select("reservations", "COUNT(id) AS numReservations");
                   $stats = 0;
-                  if($result && mysqli_num_rows($result)) {
-                    $stats = mysqli_fetch_row($result)[0];
+                  if($result !== NULL) {
+                    $stats = $result[0]["numReservations"];
                   }
                 ?>
                 <h3><?= $stats; ?></h3>
@@ -94,4 +92,4 @@
   </div>
   <!-- /.content-wrapper -->
 
-<?php include_once("" . Globals::getRoot() . "/admin/inc/footer.php"); ?>
+<?php require_once("" . Globals::getRoot() . "/admin/inc/footer.php"); ?>

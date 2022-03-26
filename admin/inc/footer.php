@@ -30,3 +30,5 @@
 <script src="<?= Globals::getURL(); ?>admin/assets/js/adminlte.js"></script>
 </body>
 </html>
+
+<?php Db::closeConn(); ?>

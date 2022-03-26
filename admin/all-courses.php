@@ -1,6 +1,7 @@
 <?php 
-    include_once("../globals.php");
-    include_once("" . Globals::getRoot() . "/admin/inc/header.php");
+    session_start();
+    require_once("../globals.php");
+    require_once("" . Globals::getRoot() . "/admin/inc/header.php");
 ?>
 
   <!-- Content Wrapper. Contains page content -->
@@ -60,13 +61,11 @@
                         </thead>
 
                         <?php
-                            $sql = "SELECT courses.id, courses.name, courses.img, courses.created_at, cats.id AS catID, cats.name AS catName
-                            FROM courses JOIN cats
-                            ON courses.cat_id = cats.id;";
-                            $result = mysqli_query($connect, $sql);
+                            $result = Db::select("courses JOIN cats", "courses.id, courses.name, courses.img, courses.created_at, cats.id AS catID, cats.name AS catName",
+                                                 "", "courses.cat_id = cats.id");
                             $courses = [];
-                            if($result && mysqli_num_rows($result)>0) {
-                                $courses = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                            if($result !== NULL) {
+                                $courses = $result;
                             }
                         ?>
 
@@ -102,4 +101,4 @@
   </div>
   <!-- /.content-wrapper -->
 
-<?php include_once("" . Globals::getRoot() . "/admin/inc/footer.php"); ?>
+<?php require_once("" . Globals::getRoot() . "/admin/inc/footer.php"); ?>

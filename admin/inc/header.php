@@ -1,9 +1,9 @@
 <?php
-  session_start();
-  include_once("../globals.php");
-  if(!isset($_SESSION["adminName"])) Globals::redirectURL("admin/login.php");
-  include_once("../globals.php");
-  include_once("" . Globals::getRoot() . "/admin/inc/db-connect.php");
+  require_once("../globals.php");
+  if(!isset($_SESSION["adminName"])) {
+    Globals::redirectURL("admin/login.php");
+  }
+  Db::openConn();
 ?>
 
 <!DOCTYPE html>
@@ -44,7 +44,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="#" class="brand-link">
+    <a href="<?= Globals::getURL(); ?>admin/index.php" class="brand-link">
       <img src="<?= Globals::getURL(); ?>admin/assets/images/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">CoursesORG</span>
@@ -68,6 +68,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <!-- Add icons to the links using the .nav-icon class
               with font-awesome or any other icon font library -->
 
+          <li class="nav-item">
+            <a href="<?= Globals::getURL(); ?>index.php" class="nav-link">
+              <i class="nav-icon fas fa-clipboard"></i>
+              <p>Our website</p>
+            </a>
+          </li>
+
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-sitemap"></i>
@@ -80,13 +87,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li class="nav-item">
                 <a href="<?= Globals::getURL(); ?>admin/all-categories.php" class="nav-link">
                   <i class="far fa-list-alt nav-icon"></i>
-                  <p>All Categories</p>
+                  <p>All categories</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="<?= Globals::getURL(); ?>admin/add-category.php" class="nav-link">
                   <i class="fas fa-plus-square nav-icon"></i>
-                  <p>Add Category</p>
+                  <p>Add category</p>
                 </a>
               </li>
             </ul>
@@ -104,13 +111,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li class="nav-item">
                 <a href="<?= Globals::getURL(); ?>admin/all-courses.php" class="nav-link">
                   <i class="far fa-list-alt nav-icon"></i>
-                  <p>All Courses</p>
+                  <p>All courses</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="<?= Globals::getURL(); ?>admin/add-course.php" class="nav-link">
                   <i class="fas fa-plus-square nav-icon"></i>
-                  <p>Add Course</p>
+                  <p>Add course</p>
                 </a>
               </li>
             </ul>
@@ -126,7 +133,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <li class="nav-item">
             <a href="<?= Globals::getURL(); ?>admin/edit-profile.php" class="nav-link">
               <i class="nav-icon fas fa-user-edit"></i>
-              <p>Edit Profile</p>
+              <p>Edit profile</p>
             </a>
           </li>
 

@@ -1,7 +1,7 @@
 <?php 
     session_start();
-    include_once("globals.php");
-    include_once("" . Globals::getRoot() . "/inc/header.php");
+    require_once("globals.php");
+    require_once("" . Globals::getRoot() . "/inc/header.php");
 ?>
     
         <!-- bradcam_area_start -->
@@ -71,12 +71,11 @@
                                     </div>
                                 </div>
 
-                                <?php 
-                                    $sql = "SELECT id, `name` FROM courses";
-                                    $result = mysqli_query($connect, $sql);
+                                <?php
+                                    $result =Db::select("courses", "id, `name`");
                                     $courses = [];
-                                    if($result && mysqli_num_rows($result)) {
-                                        $courses = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                                    if($result !== NULL) {
+                                        $courses = $result;
                                     }
                                 ?>
                                 
@@ -125,4 +124,4 @@
             </div>
         </section>
 
-<?php include_once("" . Globals::getRoot() . "/inc/footer.php"); ?>
+<?php require_once("" . Globals::getRoot() . "/inc/footer.php"); ?>

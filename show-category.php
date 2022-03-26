@@ -1,17 +1,15 @@
 
 <?php 
-    include_once("globals.php");
-    include_once("" . Globals::getRoot() . "/inc/header.php");
+    require_once("globals.php");
+    require_once("" . Globals::getRoot() . "/inc/header.php");
 
     
     $category = "No Category Found";
     if(isset($_GET["id"])) {
         $id = $_GET["id"];
-        $sql = "SELECT name AS category FROM cats
-            WHERE id = {$id}";
-        $result = mysqli_query($connect, $sql);
-        if($result && mysqli_num_rows($result)>0) {
-            $category = mysqli_fetch_row($result)[0];
+        $result = Db::select("cats", "name AS category", "id = '$id'");
+        if($result !== NULL) {
+            $category = $result[0]["category"];
         }
     }
 ?>
@@ -40,14 +38,10 @@
                         <?php
                             $courses = [];
                             if(isset($id)) {
-                                $sql = "SELECT courses.id, courses.`name`, courses.img, cats.name AS category
-                                        FROM courses LEFT JOIN cats
-                                        ON courses.cat_id = cats.id
-                                        WHERE cats.id = {$id}
-                                        ORDER BY courses.id DESC";
-                                $result = mysqli_query($connect, $sql);
-                                if($result && mysqli_num_rows($result)>0) {
-                                    $courses = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                                $result = Db::select("courses LEFT JOIN cats", "courses.id, courses.`name`, courses.img, cats.name AS category",
+                                                     "cats.id = '$id'", "courses.cat_id = cats.id", "courses.id DESC");
+                                if($result !== NULL) {
+                                    $courses = $result;
                                 }
                             }
                         ?>
@@ -76,4 +70,4 @@
     </div>
     <!-- popular_courses_end-->
     
-<?php include_once("" . Globals::getRoot() . "/inc/footer.php"); ?>
+<?php require_once("" . Globals::getRoot() . "/inc/footer.php"); ?>

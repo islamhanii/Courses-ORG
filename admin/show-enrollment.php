@@ -1,13 +1,12 @@
 <?php 
-  include_once("../globals.php");
-  include_once("" . Globals::getRoot() . "/admin/inc/header.php");
+  require_once("../globals.php");
+  require_once("" . Globals::getRoot() . "/admin/inc/header.php");
   if($_SERVER["REQUEST_METHOD"] != "GET" || !isset($_GET["id"]))  Globals::redirectURL("admin/all-enrollments.php");
 
   $id = $_GET["id"];
-  $sql = "SELECT reservations.*, courses.name AS courseName FROM reservations JOIN courses ON reservations.course_id = courses.id WHERE reservations.id = $id";
-  $result = mysqli_query($connect, $sql);
-  if($result && mysqli_num_rows($result)>0) {
-    $student = mysqli_fetch_assoc($result);
+  $result = Db::select("reservations JOIN courses", "reservations.*, courses.name AS courseName", "reservations.id = '$id'", "reservations.course_id = courses.id");
+  if($result !== NULL) {
+    $student = $result[0];
   }
   else {
     Globals::redirectURL("admin/all-enrollments.php");
@@ -25,8 +24,8 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="<?= Globals::getURL(); ?>index.php">Home</a></li>
-              <li class="breadcrumb-item"><a href="<?= Globals::getURL(); ?>all-enrollments.php">Enrollments</a></li>
+              <li class="breadcrumb-item"><a href="<?= Globals::getURL(); ?>admin/index.php">Home</a></li>
+              <li class="breadcrumb-item"><a href="<?= Globals::getURL(); ?>admin/all-enrollments.php">Enrollments</a></li>
               <li class="breadcrumb-item active">Show</li>
             </ol>
           </div><!-- /.col -->
@@ -74,4 +73,4 @@
   </div>
   <!-- /.content-wrapper -->
 
-<?php include_once("" . Globals::getRoot() . "/admin/inc/footer.php"); ?>
+<?php require_once("" . Globals::getRoot() . "/admin/inc/footer.php"); ?>

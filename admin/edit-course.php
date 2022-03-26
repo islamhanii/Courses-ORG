@@ -1,13 +1,13 @@
 <?php 
-  include_once("../globals.php");
-  include_once("" . Globals::getRoot() . "/admin/inc/header.php");
+  session_start();
+  require_once("../globals.php");
+  require_once("" . Globals::getRoot() . "/admin/inc/header.php");
   if($_SERVER["REQUEST_METHOD"] != "GET" || !isset($_GET["id"]))   Globals::redirectURL("admin/all-courses.php");
 
   $id = $_GET["id"];
-  $sql = "SELECT * FROM courses WHERE id = {$id}";
-  $result = mysqli_query($connect, $sql);
-  if($result && mysqli_num_rows($result)>0) {
-    $course = mysqli_fetch_assoc($result);
+  $result = Db::select("courses", "*", "id = '$id'");
+  if($result !== NULL) {
+    $course = $result[0];
   }
   else  Globals::redirectURL("admin/all-courses.php");
 ?>
@@ -72,11 +72,10 @@
                             </div>
 
                             <?php 
-                                $sql = "SELECT id, `name` FROM cats";
-                                $result = mysqli_query($connect, $sql);
+                                $result = Db::select("cats", "*");
                                 $cats = [];
-                                if($result && mysqli_num_rows($result)) {
-                                    $cats = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                                if($result !== NULL) {
+                                    $cats = $result;
                                 }
                             ?>
 
@@ -115,4 +114,4 @@
   </div>
   <!-- /.content-wrapper -->
 
-<?php include_once("" . Globals::getRoot() . "/admin/inc/footer.php"); ?>
+<?php require_once("" . Globals::getRoot() . "/admin/inc/footer.php"); ?>

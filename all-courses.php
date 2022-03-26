@@ -1,6 +1,13 @@
 <?php 
-    include_once("globals.php");
-    include_once("" . Globals::getRoot() . "/inc/header.php");
+    require_once("globals.php");
+    require_once("" . Globals::getRoot() . "/inc/header.php");
+
+    $result = Db::select("courses", "COUNT(id) AS count")[0]["count"];
+    $count = ceil($result/3);
+
+    $page = (isset($_GET["page"]))?$_GET["page"]:1;
+    $page = ($page<1)?1:(($page>$count)?$count:$page);
+    $offset = 3*($page-1);
 ?>
 
     <!-- bradcam_area_start -->
@@ -25,14 +32,11 @@
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab"> 
                         <?php
-                            $sql = "SELECT courses.id, courses.`name`, courses.img, cats.name AS category
-                                    FROM courses JOIN cats
-                                    ON courses.cat_id = cats.id
-                                    ORDER BY courses.id DESC";
-                            $result = mysqli_query($connect, $sql);
+                            $result = Db::select("courses JOIN cats", "courses.id, courses.`name`, courses.img, cats.name AS category",
+                                                 "", "courses.cat_id = cats.id", "courses.id DESC", 3, $offset);
                             $courses = [];
-                            if($result && mysqli_num_rows($result)>0) {
-                                $courses = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                            if($result !== NULL) {
+                                $courses = $result;
                             }
                         ?>
 
@@ -52,6 +56,17 @@
                                 </div>
                             </div>
                             <?php } ?>
+
+                            <div class="col-12">
+                                <div class="text-center">
+                                    <?php if($page > 1) { ?>
+                                    <a href="<?= Globals::getURL(); ?>all-courses.php?page=<?= $page-1?>" class="btn btn-info">Previous</a>
+                                    <?php } ?>
+                                    <?php if($page < $count) { ?>
+                                    <a href="<?= Globals::getURL(); ?>all-courses.php?page=<?= $page+1?>" class="btn btn-info">Next</a>
+                                    <?php } ?>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -60,4 +75,4 @@
     </div>
     <!-- popular_courses_end-->
     
-<?php include_once("" . Globals::getRoot() . "/inc/footer.php"); ?>
+<?php require_once("" . Globals::getRoot() . "/inc/footer.php"); ?>

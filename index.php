@@ -1,6 +1,6 @@
 <?php 
-    include_once("globals.php");
-    include_once("" . Globals::getRoot() . "/inc/header.php");
+    require_once("globals.php");
+    require_once(Globals::getRoot() . "/inc/header.php");
 ?>
 
     <!-- slider_area_start -->
@@ -45,19 +45,16 @@
                     <div class="about_tutorials">
                         <?php
                             // Courses count
-                            $sql = "SELECT COUNT(id) FROM courses";
-                            $result = mysqli_query($connect, $sql);
-                            $courses_count = mysqli_fetch_row($result)[0];
+                            $result = Db::select("courses", "COUNT(id) AS count");
+                            $courses_count = $result[0]["count"];
                             
                             // Tracks count
-                            $sql = "SELECT COUNT(id) FROM cats";
-                            $result = mysqli_query($connect, $sql);
-                            $cats_count = mysqli_fetch_row($result)[0];
+                            $result = Db::select("cats", "COUNT(id) AS count");
+                            $cats_count = $result[0]["count"];
                             
                             // Reservations count
-                            $sql = "SELECT COUNT(id) FROM reservations";
-                            $result = mysqli_query($connect, $sql);
-                            $reservations_count = mysqli_fetch_row($result)[0];
+                            $result = Db::select("reservations", "COUNT(id) AS count");
+                            $reservations_count = $result[0]["count"];
                         ?>
 
                         <div class="courses">
@@ -110,15 +107,11 @@
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
                         <?php
-                            $sql = "SELECT courses.id, courses.`name`, courses.img, cats.name AS category
-                                    FROM courses JOIN cats
-                                    ON courses.cat_id = cats.id
-                                    ORDER BY courses.id DESC
-                                    LIMIT 3";
-                            $result = mysqli_query($connect, $sql);
+                            $result = Db::select("courses JOIN cats", "courses.id, courses.`name`, courses.img, cats.name AS category",
+                                                 "", "courses.cat_id = cats.id", "courses.id DESC", 3);
                             $courses = [];
-                            if($result && mysqli_num_rows($result)>0) {
-                                $courses = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                            if($result !== NULL) {
+                                $courses = $result;
                             }
                         ?>
 
@@ -154,4 +147,4 @@
     </div>
     <!-- popular_courses_end-->
 
-<?php include_once("" . Globals::getRoot() . "/inc/footer.php"); ?>
+<?php require_once("" . Globals::getRoot() . "/inc/footer.php"); ?>

@@ -1,6 +1,7 @@
 <?php 
-    include_once("../globals.php");
-    include_once("" . Globals::getRoot() . "/admin/inc/header.php");
+    session_start();
+    require_once("../globals.php");
+    require_once("" . Globals::getRoot() . "/admin/inc/header.php");
 ?>
 
   <!-- Content Wrapper. Contains page content -->
@@ -62,12 +63,11 @@
                               <textarea class="form-control" id="exampleInputDesc1" name="desc" placeholder="Enter description"><?= (isset($post["desc"]))?$post["desc"]:""; ?></textarea>
                             </div>
 
-                            <?php 
-                                $sql = "SELECT id, `name` FROM cats";
-                                $result = mysqli_query($connect, $sql);
+                            <?php
+                                $result = Db::select("cats", "id, `name`");
                                 $cats = [];
-                                if($result && mysqli_num_rows($result)) {
-                                    $cats = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                                if($result !== NULL) {
+                                    $cats = $result;
                                 }
                             ?>
 
@@ -106,4 +106,4 @@
   </div>
   <!-- /.content-wrapper -->
 
-<?php include_once("" . Globals::getRoot() . "/admin/inc/footer.php"); ?>
+<?php require_once("" . Globals::getRoot() . "/admin/inc/footer.php"); ?>

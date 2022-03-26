@@ -1,8 +1,8 @@
 <?php
     session_start();
-    
-    include_once("../globals.php");
-    include_once(Globals::getRoot() . "/validators.php");
+
+    require_once("../globals.php");
+    require_once(Globals::getRoot() . "/validators.php");
 
     if($_SERVER["REQUEST_METHOD"] != "POST" || !isset($_POST["submit"]))    Globals::redirectURL();
     else {

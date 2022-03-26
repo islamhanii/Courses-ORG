@@ -1,13 +1,13 @@
 <?php 
-    include_once("../globals.php");
-    include_once("" . Globals::getRoot() . "/admin/inc/header.php");
+    session_start();
+    require_once("../globals.php");
+    require_once("" . Globals::getRoot() . "/admin/inc/header.php");
     if($_SERVER["REQUEST_METHOD"] != "GET" || !isset($_GET["id"]))   Globals::redirectURL("admin/all-categories.php");
 
     $id = $_GET["id"];
-    $sql = "SELECT * FROM cats WHERE id = {$id}";
-    $result = mysqli_query($connect, $sql);
-    if($result && mysqli_num_rows($result)>0) {
-      $category = mysqli_fetch_assoc($result);
+    $result = Db::select("cats", "*", "id = '$id'");
+    if($result !== NULL) {
+      $category = $result[0];
     }
     else  Globals::redirectURL("admin/all-categories.php");
 ?>
@@ -76,4 +76,4 @@
   </div>
   <!-- /.content-wrapper -->
 
-<?php include_once("" . Globals::getRoot() . "/admin/inc/footer.php"); ?>
+<?php require_once("" . Globals::getRoot() . "/admin/inc/footer.php"); ?>

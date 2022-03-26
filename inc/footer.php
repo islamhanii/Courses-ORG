@@ -1,4 +1,7 @@
-<?php include_once("globals.php"); ?>
+<?php 
+    if($_SERVER["REQUEST_URI"] === "/Courses-ORG/inc/footer.php")   echo "<script> window.location.href = '../'; </script>";
+    require_once("globals.php");
+?>
 <!-- footer -->
 <footer class="footer footer_bg_1">
         <div class="footer_top">
@@ -200,5 +203,5 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 </html>
 
 <?php
-    mysqli_close($connect);
+    Db::closeConn();
 ?>

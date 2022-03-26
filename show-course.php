@@ -1,15 +1,15 @@
 <?php 
-    include_once("globals.php");
-    include_once("" . Globals::getRoot() . "/inc/header.php");
+    require_once("globals.php");
+    require_once("" . Globals::getRoot() . "/inc/header.php");
 
     $found = false;
     $course["name"] = "No Course Found";
     if(isset($_GET["id"])) {
         $id = $_GET["id"];
         $sql = "SELECT `name`, `desc`, img FROM courses WHERE id = $id";
-        $result = mysqli_query($connect, $sql);
-        if($result && mysqli_num_rows($result)>0) {
-            $course = mysqli_fetch_assoc($result);
+        $result = Db::select("courses", "`name`, `desc`, img", "id = '$id'");
+        if($result !== NULL) {
+            $course = $result[0];
             $found = true;
         }
     }
@@ -61,4 +61,4 @@
     </div>
     <?php } ?>
 
-<?php include_once("" . Globals::getRoot() . "/inc/footer.php"); ?>
+<?php require_once("" . Globals::getRoot() . "/inc/footer.php"); ?>

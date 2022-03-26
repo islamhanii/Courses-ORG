@@ -1,4 +1,7 @@
 <?php
+    if($_SERVER["REQUEST_URI"] === "/Courses-ORG/globals.php")   echo "<script> window.location.href = 'index.php'; </script>";
+    require_once("db.php");
+    
     class Globals {
         public static $root = __DIR__;
         public static $url = "http://localhost/Courses-ORG/";
